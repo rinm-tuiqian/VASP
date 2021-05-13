@@ -1,0 +1,11 @@
+alias l='ls'
+alias ll='ls -l'
+alias lth='ls -lt | head'
+alias cd..='cd ../'
+alias sshgz='ssh -i ~/Desktop/password/suda_lfchi_1.id suda_lfchi_1@172.16.22.11 '
+alias sftpgz='sftp -i ~/Desktop/password/suda_lfchi_1.id suda_lfchi_1@172.16.22.11 '
+
+
+
+
+vi ~/.zshrc

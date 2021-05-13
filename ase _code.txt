@@ -1,0 +1,715 @@
+--------------------------Liunx 搭梯子---------------------------------------------------
+运行git clone https://github.com/jiangxufeng/v2rayL.git
+进入项目文件夹，然后运行pip install -r requirements.txt
+运行cd v2rayL-GUI && pyinstaller -F v2rayLui.py -p config.py -p sub2conf_api.py -p v2rayL_api.py -p v2rayL_threads.py -p utils.py -i images/logo.ico -n v2rayLui
+打包后运行mv dist/v2rayLui /usr/bin/v2rayL/v2rayLui 替换安装时下载的程序
+bash <(curl -s -L http://dl.thinker.ink/install.sh)
+来源 https://github.com/jiangxufeng/v2rayL
+
+--------------------------------movie文件转gif-----------------------
+ase convert movie.xyz demo.gif
+ase gui movie.xyz@:: -o demo.gif
+--------------------------------循环语句----------------------------
+for i in 0{1..9}; do cd $i; mv CONTCAR POSCAR; cd ..; done
+
+---------------------------------------快速查看---------------------------
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Oct 15 16:57:02 2020
+
+@author: pengg
+"""
+from ase.io import read
+from ase.visualize import view
+
+a=read('movie.xyz')
+view(a)
+
+------------------------------------搭建一个铜111面------------------------------------
+from ase.build import fcc111
+from ase.constraints import FixAtoms
+from ase.io import read,write
+from ase.visualize import view
+from ase import Atoms
+import numpy as np
+a=np.arange(64)
+atoms=fcc111('Cu', size=(8,4,4),vacuum=15.0,orthogonal=(True))
+c = FixAtoms(indices=a)
+atoms.set_constraint(c)
+#atoms.write('Cu111.traj')
+view(atoms)
+----------------------------------------搭建六碳烷--------------------------------------------------
+搭建六碳烷
+# -*- coding: utf-8 -*-
+"""
+Created on Fri Sep 25 11:11:52 2020
+@author: pengg
+"""
+from ase.build import molecule
+from ase.visualize import view
+#烷基删掉连接处的两个氢原子构成长分子的碳链  中间碳原子的index为0 
+
+molecule_1=molecule("C3H8") 
+indices_1=[6]
+del molecule_1[indices_1]
+
+molecule_2=molecule("C3H8")
+for atoms in molecule_2:
+    atoms.y -= 4.017
+indices_2=[5]
+del molecule_2[indices_2]
+
+
+mol=molecule_1+ molecule_2
+mol.set_cell([20,20,20])
+
+mol.center()
+mol.write('C6H14.traj')#生成一个C6H14的分子
+view(mol)
+------------------------------------------快速porvay---------------------------------------------------
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct 11 19:53:51 2020
+
+@author: pengg
+"""
+
+import numpy as np
+from ase import Atoms
+from ase.io import write,read
+from ase.build import molecule
+from ase.data.colors import jmol_colors
+
+atoms=read('CONTCAR_add_')
+n=len(atoms)
+number=atoms.get_atomic_numbers()
+colors=jmol_colors[number]
+
+indice_C = [atom.index for atom in atoms if atom.symbol == 'C']
+indice_H = [atom.index for atom in atoms if atom.symbol == 'H']
+indice_Cu = [atom.index for atom in atoms if atom.symbol == 'Cu']
+for i in indice_H:
+	colors[i] = [28,28,28] / np.array([255.])
+for j in indice_Cu:
+	colors[j] = [210,105,30] / np.array([255.])
+for k in indice_C:
+    colors[k]=[139,26,26]/np.array([255.])
+    
+kwargs = {
+    #'rotation'      : rot, # text string with rotation (default='' )
+    'radii'         : .85, # float, or a list with one float per atom
+   # 'colors'        : colors,# List: one (r, g, b) tuple per atom
+    'show_unit_cell': 0,   # 0, 1, or 2 to not show, show, and show all of cell  !show lattice!
+    }
+# Extra kwargs only available for povray (All units in angstrom)
+kwargs.update({
+  #'run_povray'   : True, # Run povray or just write .pov + .ini files this computer is invaild
+    'display'      : True, # Display while rendering
+    'pause'        : True, # Pause when done rendering (only if display)
+    'transparent'  : False,# Transparent background
+    'canvas_width' : None, # Width of canvas in pixels
+    'canvas_height': 1480, # Height of canvas in pixels  !only change one of width and height!
+    'colors'       : colors,
+    'camera_dist'  : 50.,  # Distance from camera to front atom
+    'image_plane'  : None, # Distance from front atom to image plane
+    'camera_type'  : 'perspective', # perspective, ultra_wide_angle
+    'point_lights' : [],             # [[loc1, color1], [loc2, color2],...]
+    'area_light'   : [(2., 3., 40.), # location
+                      'White',       # color
+                      .7, .7, 3, 3], # width, height, Nlamps_x, Nlamps_y
+    'background'   : 'White',        # color defult is White
+    'textures'     : None, # Length of atoms list of texture names
+    #'rotation'     :rot,
+    'celllinewidth': 0.1,  # Radius of the cylinders representing the cell
+    })
+write('test_1.pov', atoms, **kwargs)
+
+rot = '-90x, -90y, 0z' #旋转变换
+kwargs['rotation']=rot
+kwargs.update({'canvas_height' :456,
+               })
+write('test_2.pov', atoms, **kwargs)
+
+----------------------------------------折线图-----------------------------------------------------------
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Nov 15 12:36:27 2020
+
+@author: pengg
+"""
+
+#! /usr/bin/env python
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def linear_interp(xco, yco):
+    x0, x1 = xco[0] + label_length / 2, xco[1] - label_length / 2
+    y0, y1 = yco[0], yco[1]
+    xfi = np.linspace(x0, x1, 51)
+    yfi = np.linspace(y0, y1, 51)
+    return xfi, yfi
+
+
+def add_mep(x, y, label_color, **kwargs):
+    assert len(x) == len(y) == len(label_color)
+    react_coord = np.array(x)
+    energy = np.array(y)
+    energy = energy - energy[0]
+    # Draw the line connecting all images
+    react_coord_fi = np.array([])
+    energy_fi = np.array([])
+    for i in range(energy.size-1):
+        xfi, yfi = linear_interp(react_coord[i:i+2], energy[i:i+2])
+        react_coord_fi = np.append(react_coord_fi, xfi)
+        energy_fi = np.append(energy_fi, yfi)
+    axes.plot(react_coord_fi, energy_fi, linewidth=line_width, **kwargs)
+    # Add energy levels
+    for i, coord in enumerate(react_coord):
+        label_x = np.array([coord - label_length / 2, coord + label_length / 2])
+        label_y = np.array([energy[i], energy[i]])
+        axes.plot(label_x, label_y, linewidth=label_width, color=label_color[i])
+
+
+# Size and resolution of the figure in inches (1 inch = 2.54 cm)
+figure_size = (5, 4)
+figure_dpi = 300
+
+# Font settings
+font_size = 12
+font_family = "Arial"
+font_weight = "bold"
+
+# Axes and spines settings
+ymin = -2.0
+ymax = 2.0
+axes_width = 1.5
+spines_width = 1.5
+
+# Length, width of lines and labels
+line_width = 1.0
+label_length = 0.5
+label_width = 1.5
+
+# Global settings and create the figure
+plt.rc("font", size=font_size, family=font_family, weight=font_weight)
+fig, axes = plt.subplots(figsize=figure_size)
+
+# Plot the MEPs
+# Names for colors: (b)lue, (r)ed, (g)reen, (c)yan, (m)agenta, blac(k), (w)hite
+# Allowd linestyles are "-", "--", "-.", ":"
+x = [0, 1, 2]
+add_mep(x, [0, 1.3, -0.7],   ["k", "b", "b"], color="b", linestyle=":", label="Path-A")
+add_mep(x, [0, 0.47, 0.13],  ["k", "r", "r"], color="r", linestyle=":", label="Path-B")
+add_mep(x, [0, 1.35, 1.63],  ["k", "k", "k"], color="k", linestyle=":", label="Path-C")
+add_mep(x, [0, 0.80, -1.9],  ["k", "c", "c"], color="c", linestyle=":", label="Path-D")
+add_mep(x, [0, 0.89, -1.4],  ["k", "m", "m"], color="m", linestyle=":", label="Path-E")
+add_mep(x, [0, 1.48, -0.66], ["k", "g", "g"], color="g", linestyle=":", label="Path-F")
+
+# Adjusting the figures
+axes.set_xlabel("Reaction coordinate", fontsize="large", weight=font_weight)
+axes.set_ylabel("Energy (eV)", fontsize="large", weight=font_weight)
+
+axes.set_xticks([])
+#axes.set_ylim(ymin, ymax)
+axes.tick_params(axis="y", width=axes_width)
+
+# Hide or show borders
+for key in ("top", "bottom", "right"):
+    #axes.spines[key].set_visible(False)
+    axes.spines[key].set_linewidth(spines_width)
+
+# Left border is always shown
+axes.spines["left"].set_linewidth(spines_width)
+
+# Legend
+axes.legend(edgecolor="w")
+
+# Save the figure
+fig.tight_layout()
+fig.savefig("mep_line.png", dpi=figure_dpi)
+
+
+--------------------------------------------------------------曲线图----------------------------
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Nov 15 12:00:17 2020
+
+@author: pengg
+"""
+
+
+
+import numpy as np
+import matplotlib.pyplot as plt
+
+
+def cubic_fit(xco, yco):
+    """
+    We build a cubic polynomial that satisfies
+        f(x0) = y0
+        f(x1) = y1
+        f'(x0) = 0
+        f'(x1) = 0.
+    """
+    x0, y0 = xco[0], yco[0]
+    x1, y1 = xco[1], yco[1]
+    A = np.array([
+            [x0**3,   x0**2, x0, 1],
+            [x1**3,   x1**2, x1, 1],
+            [3*x0**2,  2*x0,  1, 0],
+            [3*x1**2,  2*x1,  1, 0]])
+    b = np.array([y0, y1, 0, 0])
+    coeff = np.linalg.solve(A, b)
+    xfi = np.linspace(x0, x1, 51)
+    yfi = np.polyval(coeff, xfi)
+    return xfi, yfi
+
+
+def add_mep(x, y, label_color, **kwargs):
+    assert len(x) == len(y) == len(label_color)
+    react_coord = np.array(x)
+    energy = np.array(y)
+    energy = energy - energy[0]
+    # Draw the line connecting all images
+    react_coord_fi = np.array([])
+    energy_fi = np.array([])
+    for i in range(energy.size-1):
+        xfi, yfi = cubic_fit(react_coord[i:i+2], energy[i:i+2])
+        react_coord_fi = np.append(react_coord_fi, xfi)
+        energy_fi = np.append(energy_fi, yfi)
+    axes.plot(react_coord_fi, energy_fi, linewidth=line_width, **kwargs)
+    # Add energy levels
+    for i, coord in enumerate(react_coord):
+        label_x = np.array([coord - label_length / 2, coord + label_length / 2])
+        label_y = np.array([energy[i], energy[i]])
+        axes.plot(label_x, label_y, linewidth=label_width, color=label_color[i])
+
+
+# Size and resolution of the figure in inches (1 inch = 2.54 cm)
+figure_size = (5, 4)
+figure_dpi = 300
+
+# Font settings
+font_size = 12
+font_family = "Arial"
+font_weight = "bold"
+
+# Axes and spines settings
+ymin = -2.0
+ymax = 2.0
+axes_width = 1.5
+spines_width = 1.5
+
+# Length, width of lines and labels
+line_width = 1.0
+label_length = 0.3
+label_width = 1.5
+
+# Global settings and create the figure
+plt.rc("font", size=font_size, family=font_family, weight=font_weight)
+fig, axes = plt.subplots(figsize=figure_size)
+
+# Plot the MEPs
+# Names for colors: (b)lue, (r)ed, (g)reen, (c)yan, (m)agenta, blac(k), (w)hite
+# Allowd linestyles are "-", "--", "-.", ":"
+x = [0, 1, 2, 3, 4]
+add_mep(x, [0, 3.04, 2.50, 4.34, 2.67],   ["k", "b", "r", "c" ,"m"], color="k", linestyle="-", label="Path-A")
+add_mep(x, [0, 2.70, 2.95, 1.35, 2.00],   ["k", "b", "r", "c" ,"m"], color="b", linestyle="-", label="Path-B")
+
+# Adjusting the figures
+axes.set_xlabel("Reaction coordinate", fontsize="large", weight=font_weight)
+axes.set_ylabel("Energy (eV)", fontsize="large", weight=font_weight)
+
+axes.set_xticks([])
+#axes.set_ylim(ymin, ymax)
+axes.tick_params(axis="y", width=axes_width)
+
+# Hide or show borders
+for key in ("top", "bottom", "right"):
+    #axes.spines[key].set_visible(False)
+    axes.spines[key].set_linewidth(spines_width)
+
+# Left border is always shown
+axes.spines["left"].set_linewidth(spines_width)
+
+# Legend
+axes.legend(edgecolor="w")
+
+# Save the figure
+fig.tight_layout()
+fig.savefig("mep_curve.png", dpi=figure_dpi)
+
+
+---------------------------------------------------插点自动neb-------------------------------------------------------
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Nov 18 20:28:32 2020
+
+@author: pengguyue
+
+此段代码需要实现neb的过程中实现在中间进行手动进行插图片 
+对neb过程进行原子移动轨迹的引导 
+for example : 01~04  06~10 insert 05 
+it will cause two pathway : one is from 01 to 04（image1 and neb1）
+and 06~10(neb2 and image2). finally   
+"""
+
+from ase.neb import NEB
+from ase.io import read
+from ase.visualize import write
+from ase.constraints import *
+from ase.calculators.vasp import Vasp
+import os
+
+"""
+读取文件 ints文件需要自己手动设置生成 
+"""
+initial = read("CONTCAR_IS")
+intermediate =read("CONTCAR_IntS")
+final = read("CONTCAR_FS")
+
+"""
+删除固定的限制 neb过程无原子限制
+"""
+del initial.constraints
+del intermediate.constraints
+del final.constraints
+
+"""
+be care for the number of range
+INCAR number = image1 + image2 =1 !!! 
+"""
+images1 = [initial]
+images1 +=[initial.copy() for i in range(4)]
+images1 +=[intermediate]
+ 
+neb1 =NEB(images1)
+neb1.interpolate('idpp') # idpp ????
+
+images2 = [intermediate]
+images2 +=[intermediate.copy() for i in range(5)]
+images2 +=[final]
+ 
+neb2 =NEB(images2)
+neb2.interpolate('idpp') # idpp ????
+
+images=images1+images2[1:]
+n = len(images)-2
+
+
+calc = Vasp(prec='Normal',
+            xc='PBE',
+            icharg=2,
+            ispin=1,
+            lsorbit=False,
+            iniwav=1,
+            encut=400,
+            nelm=30,
+            ediff=0.1E-03,# one
+            lreal='Auto',
+            ediffg=-0.1,  #two
+            nsw=50,       #three
+            nfree=0,
+            isym=0,
+            ismear=0,
+            sigma=0.1,
+            ichain=0,
+            spring=-5,
+            lclimb=False,  # NEB=.FALSE. CI-NEB=.True.
+            images=10,
+            ialgo=48,
+            ldiag=True,
+            lscalapack=False,
+            ibrion=3,
+            potim=0,
+            iopt=1,
+            lcharg=False,
+            lwave=False,
+            lorbit=0,
+            lelf=False,
+            ncore=8,
+            ivdw=11)
+            
+images[0].set_calculator(calc)
+print(">>>>>>>>>>>加载中>>>>>>>>>>")
+calc.initialize(images[0])
+print("加载完毕!..")
+
+calc.write_incar(images[0])
+calc.write_potcar()
+calc.write_kpoints()
+for i in range(len(images)):
+    os.system("mkdir %02i" % i)
+    write("%02i/POSCAR" % i, images[i],format="vasp")
+--------------------------------------------------------------------INCAR————————————————————
+
+INCAR created by Atomic Simulation Environment
+ POTIM = 0.000000
+ ENCUT = 400.000000
+ SPRING = -5.000000
+ SIGMA = 0.100000
+ EDIFF = 1.00e-04     #04 is enough 
+ EDIFFG = -0.1  #-0.05 is enough 
+ PREC = Normal
+ GGA = PE
+ IOPT = 1
+ ICHAIN = 0
+ ISMEAR = 0
+ ICHARG = 2
+ NELM = 30
+ IBRION = 3      #ensure 1, if not 3 
+ ISYM = 0
+ IMAGES = 10     #insert photo number
+ IALGO = 48
+ INIWAV = 1
+ ISPIN = 1
+ NSW =80      #need loop steps
+ NFREE = 0
+ LORBIT = 0
+ NCORE = 8
+ IVDW = 11
+ LELF = .FALSE.
+ LCHARG = .FALSE.
+ LCLIMB = .FALSE.  # NEB=.FALSE. CI-NEB=.True.
+ LDIAG = .TRUE.
+ LSORBIT = .FALSE.
+ LWAVE = .FALSE.
+ LSCALAPACK = .FALSE.
+ LREAL = Auto
+
+------------------------------------------------------rel.sub------------------------------
+#!/bin/sh
+#SBATCH -J position_112_neb
+#SBATCH -N 5
+#SBATCH -o output.neb
+#SBATCH -p work
+#SBATCH -n 120
+
+#module load intel-compilers/15.0.1
+#module load intel-compilers/mkl-15
+#module load MPI/Intel/IMPI/5.0.2.044
+
+export VASP_COMMAND='yhrun -N5 -n120 /WORK/suda_lfchi_1/Software/VASP/vasp5.4.1.vtst.std'
+export VASP_PP_PATH='/WORK/suda_lfchi_1/opt/psudopotential'
+
+python interpolate.py
+yhrun -N5 -n120 /WORK/suda_lfchi_1/Software/VASP/vasp5.4.1.vtst.std
+
+#ln -s /WORK/suda_lfchi_1/opt/vdw_kernel.bindat vdw_kernel.bindat
+#python scf.py
+#python setup.py
+#python dimer.py calc
+
+# End of script
+
+--------------------------------------neb.py---------------------------
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Nov 21 15:10:31 2020
+
+@author: pengguyue
+"""
+
+import os
+from ase.neb import NEB
+from ase.io import read, write
+from ase.visualize import view
+from ase.constraints import *
+from ase.calculators.vasp import Vasp
+
+"""
+读取文件 ints文件需要自己手动设置生成 
+"""
+initial = read("CONTCAR_IS")
+#intermediate =read("CONTCAR_IntS")
+final = read("CONTCAR_FS")
+
+"""
+删除固定的限制 neb过程无原子限制
+"""
+del initial.constraints
+#del intermediate.constraints
+del final.constraints
+
+images1 = [initial]
+images1 +=[initial.copy() for i in range(10)]
+images1 +=[final]
+ 
+neb1 =NEB(images1)
+#neb1.interpolate('idpp') # idpp ????
+
+images=images1
+n = len(images)-2
+
+calc = Vasp(prec='Normal',
+            xc='PBE',
+            icharg=2,
+            ispin=1,
+            lsorbit=False,
+            iniwav=1,
+            encut=400,
+            nelm=30,
+            ediff=0.1E-04, ##
+            lreal='Auto',
+            ediffg=-0.1,  ##
+            nsw=50,   ##
+            nfree=0,
+            isym=0,
+            ismear=0,
+            sigma=0.1,
+            ichain=0,
+            spring=-5,
+            lclimb=False,   ###
+            images=n,
+            ialgo=48,
+            ldiag=True,
+            lscalapack=False,
+            ibrion=3,
+            potim=0,
+            iopt=1,
+            lcharg=False,
+            lwave=False,
+            lorbit=0,
+            lelf=False,
+            ncore=8,
+            ivdw=11)
+
+
+images[0].set_calculator(calc)
+print (">>>>>>>>>>>加载中>>>>>>>>>>")
+ll
+print ("OK")
+calc.write_incar(images[0])
+calc.write_potcar()
+calc.write_kpoints()
+#Now for each image, create its directory, cd into that
+#and create the POSCAR:
+
+for i in range(len(images)):
+    os.system("mkdir %02i" % i) #makes folder 00, 01, 02
+    write("%02i/POSCAR" % i,images[i],format="vasp") # Write the poscar
+
+
+---------------------------------------------恢复晶格------------------------------
+from ase.io import read
+from ase import atoms
+from ase.visualize import view
+
+def scale(file_1, file_2):
+ atoms0 = read(file_1)
+ scaled0 = atoms0.get_scaled_positions(wrap=False)
+ 
+ atoms = read(file_2)
+ scaled = atoms.get_scaled_positions(wrap=False)
+ for m in range(len(scaled)):
+  for i in range(3):
+   if scaled[m,i] - scaled0[m,i] > 0.5:
+    scaled[m,i] -= 1.
+   elif scaled[m,i] - scaled0[m,i] < -0.5:
+    scaled[m,i] += 1.
+ atoms.set_scaled_positions(scaled)
+ atoms.write(file_2)
+ return
+
+
+scale('CONTCAR','CONTCAR_opt')
+a=read('CONTCAR_opt')
+view(a)
+
+
+-----------------------------------------------------DOS-------------------------------------------
+import sys
+import numpy as np
+import matplotlib.pyplot as plt
+class dos_file:
+	#split the dos file into several lists for further visualization.
+	#calculate the center of the given orbital.
+	def __init__(self, name):
+		self.name = name
+
+	def dos_list(self, emin, emax, nspin):
+		f = open(self.name, 'r')
+		if nspin == 1:
+			Sum = 0
+			fill = 0
+			dos = []
+			E = []
+			for line in f:
+				if line.startswith('#'):continue
+				E_i, dos_i = float(line.split()[0]), float(line.split()[1])
+				dos.append(dos_i)
+				E.append(E_i)
+
+				if emin < E_i < emax:
+					Sum += E_i * dos_i
+					fill += dos_i
+			center = Sum / fill	 
+			#print ('Center of DOS is: %.5f eV' % center)
+			return (E, dos, center)
+
+		elif nspin == 2:
+			Sum = 0
+			fill = 0
+			E = []
+			dos_up = []
+			dos_down = []
+			for line in f:
+				line = line.strip()
+				if line.startswith('#'):continue
+				E_i, dos_up_i, dos_down_i = float(line.split()[0]), float(line.split()[1]), float(line.split()[2])
+				E.append(E_i)
+				dos_up.append(dos_up_i)
+				dos_down.append(dos_down_i)
+
+				if emin < E_i < emax:
+					Sum += E_i * (dos_up_i - dos_down_i)
+					fill += (dos_up_i - dos_down_i)
+			center = Sum / fill
+			#print ('Center of DOS is: %.5f eV' % center)
+			return E, dos_up, dos_down, center		
+		else:
+			print ('Wrong spin-polarization!')
+			sys.exit(0)
+		f.close()
+def read_COHP(name):
+	f = open(name, 'r')
+	E = []
+	COHP = []
+
+	for line in f:
+		line = line.strip()
+		if line.startswith('#'):continue
+
+		E_i = float(line.split()[0])
+		COHP_i = float(line.split()[1])
+		E.append(E_i)
+		COHP.append(COHP_i)
+	return E, COHP
+	f.close()
+    
+    
+    
+fig, ax = plt.subplots(1,1,figsize=(8,6))	
+
+R_COOH_O1=dos_file('R_COOH.dat').dos_list(-5, 5, 1)
+R_OH=dos_file('R_OH.dat').dos_list(-5, 5, 1)
+R_CHO=dos_file('R_CHO.dat').dos_list(-5, 5, 1)
+
+COOH_O1=ax.plot(R_COOH_O1[0],R_COOH_O1[1],c='b',label='R_COOH_O1)',linewidth=2)
+OH=ax.plot(R_OH[0],R_OH[1],c='r',label='R_OH',linewidth=2)
+CHO=ax.plot(R_CHO[0],R_CHO[1],c='g',label='R_CHO', linewidth=2)
+
+
+ax.set_xlabel('$\mathrm{E-E_F}$ (eV)')
+ax.set_ylabel('DOS (a.u.)')
+ax.axvline(x=0,ls='--',c='k')
+ax.set_xlim([-6,1.5])
+ax.set_ylim([0,1.5])
+ax.legend(loc='upper left')
+ax.set_title('O_P_DOS')
+
+plt.savefig('test.png',dpi=200)
+fig.tight_layout()
+plt.show()
