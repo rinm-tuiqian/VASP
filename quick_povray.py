@@ -25,7 +25,7 @@ for j in indice_Cu:
 for k in indice_C:
         colors[k]=[105,105,105]/np.array([255.])
 for l in indice_O:
-	color[l]= [238,44,44]/np.array([255.])
+	colors[l]= [238,0,0]/np.array([255.])
 
 radii = covalent_radii[number]
 for n in indice_H:
