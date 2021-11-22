@@ -77,6 +77,14 @@ kwargs.update({
     'celllinewidth': 0.1,  # Radius of the cylinders representing the cell
     })
 
+
+‘’‘
+假如我定义一个函数，不能确定参数有多少个，例如要对输入的一组数字做连加操作。那么就可以定义plus(*x)，
+当调用该函数时，若输入多个变量plus(1,2,3)，那么就会把输入的变量组合成一个元祖x=(1,2,3)输入。
+定义双星号plus(**x)的意思是，调用该函数时若写出形参变量plus(a=1,b=2,c=3)，那么输入变量就会组合成字典x={a:1,b:2,c:3}传入函数。
+
+
+’‘’
 write('test_1.pov', atoms, **kwargs)
 
 
