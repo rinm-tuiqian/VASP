@@ -1,3 +1,6 @@
+'''
+This script use VDW is re-vdWDF2 not ivdw =11(DFT-D3),meanwhile,functional is not PBE at all. 
+'''
 from ase.io import read
 from ase.calculators.vasp import Vasp, xdat2traj
 import numpy as np
