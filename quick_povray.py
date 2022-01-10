@@ -3,13 +3,6 @@
 Created on Sun Oct 11 19:53:51 2020
 
 @author: pengg
-"""
-
-# -*- coding: utf-8 -*-
-"""
-Created on Sun Oct 11 19:53:51 2020
-
-@author: pengg
 be care for atoms size
 
 """
