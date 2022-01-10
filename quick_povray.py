@@ -78,7 +78,7 @@ kwargs = {
 kwargs.update({
    # 'run_povray'   : True, # Run povray or just write .pov + .ini files this computer is invaild
     'display'      : True, # Display while rendering
-   # 'camera_type'  : 'orthographic', # perspective, ultra_wide_angle
+   # 'camera_type'  : 'orthographic', # perspective, ultra_wide_angle ，orthographic 推荐使用正交角度
     'pause'        : True, # Pause when done rendering (only if display)
   #  'transparent'  : False,# Transparent background if it is ture the background is white
     'canvas_width' : None, # Width of canvas in pixels
@@ -88,10 +88,10 @@ kwargs.update({
     'image_plane'  : None, # Distance from      uyu front atom to image plane
     'camera_type'  : 'orthographic', # perspective, ultra_wide_angle
     'point_lights' : [],    # [[loc1, color1], [loc2, color2],[[[30,30,100],'White'],
-                                                                            #[[30,10,100],'White']]]
+                                                                            #[[30,10,100],'White']]] 此处为点光源
     'area_light'   : [(30., 10., 60.), # location
                       'White',       # color
-                      70.7, 70.7, 50, 60],# width, height, Nlamps_x, Nlamps_y
+                      70.7, 70.7, 50, 60],# width, height, Nlamps_x, Nlamps_y 此处为区域光源
    # 'background'   : 'White',        # color defult is White
    'transparent'   :'True',
     'textures'     : tex, # Length of atoms list of texture names
