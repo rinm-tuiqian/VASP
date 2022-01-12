@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Wed Apr 21 16:06:28 2021
-
+此段代码是通过多项式来拟合曲线，其中多项式的次数可以控制。
 @author: pengguyue
 """
 
