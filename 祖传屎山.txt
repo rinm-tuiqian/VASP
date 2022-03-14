@@ -14,6 +14,14 @@ alias sshgz='ssh -i ~/Desktop/password/suda_lfchi_1.id suda_lfchi_1@172.16.22.11
 alias sftpgz='sftp -i ~/Desktop/password/suda_lfchi_1.id suda_lfchi_1@172.16.22.11 '
 
 vi ~/.zshrc
+source  ~/.bashrc 
+
+解决vi模式下上下键输出为字母的问题
+sudo apt-get remove vim-common
+sudo apt-get install vim
+
+
+
 
 --------------------------------movie文件转gif-----------------------
 ase convert movie.xyz demo.gif
