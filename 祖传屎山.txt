@@ -1,10 +1,13 @@
 --------------------------Liunx 搭梯子---------------------------------------------------
-运行git clone https://github.com/jiangxufeng/v2rayL.git
-进入项目文件夹，然后运行pip install -r requirements.txt
-运行cd v2rayL-GUI && pyinstaller -F v2rayLui.py -p config.py -p sub2conf_api.py -p v2rayL_api.py -p v2rayL_threads.py -p utils.py -i images/logo.ico -n v2rayLui
-打包后运行mv dist/v2rayLui /usr/bin/v2rayL/v2rayLui 替换安装时下载的程序
-bash <(curl -s -L http://dl.thinker.ink/install.sh)
-来源 https://github.com/jiangxufeng/v2rayL
+https://github.com/Fndroid/clash_for_windows_pkg/releases #下载适合的版本解压改名为clash
+chmod +x clash #注意 修改网络为手动 HTTP 以及 HTTPS 为127.0.0.1 和7890
+./cfw #启动clash 修改port 7890
+
+
+
+
+
+
 
 alias l='ls'
 alias ll='ls -l'
