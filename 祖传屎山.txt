@@ -1,10 +1,17 @@
+Linux 使用指引
+-----------------------更换国内的源--------------
+右上角倒三角 setting》about〉software》China 推荐使用阿里云
+
 --------------------------Liunx 搭梯子---------------------------------------------------
 https://github.com/Fndroid/clash_for_windows_pkg/releases #下载适合的版本解压改名为clash
 chmod +x clash #注意 修改网络为手动 HTTP 以及 HTTPS 为127.0.0.1 和7890
 ./cfw #启动clash 修改port 7890
 
+-----------安装pip povray 环境变量-------
+sudo apt update
+sudo apt install python3-pip
 
-
+export PATH=/usr/local/bin:$PATH
 
 
 
