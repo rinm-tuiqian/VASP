@@ -8,11 +8,11 @@ from ase.data import covalent_radii
 atoms = read('CONTCAR')
 
 
-indice_C = [atom.index for atom in atoms if atom.symbol == 'C']
-indice_H = [atom.index for atom in atoms if atom.symbol == 'H']
-indice_N = [atom.index for atom in atoms if atom.symbol == 'N']
+indice_C  = [atom.index for atom in atoms if atom.symbol == 'C']
+indice_H  = [atom.index for atom in atoms if atom.symbol == 'H']
+indice_N  = [atom.index for atom in atoms if atom.symbol == 'N']
 indice_Cu = [atom.index for atom in atoms if atom.symbol == 'Cu']
-indice_O = [atom.index for atom in atoms if atom.symbol == 'O']
+indice_O  = [atom.index for atom in atoms if atom.symbol == 'O']
 indice_Au = [atom.index for atom in atoms if atom.symbol == 'Au']
 indice_Ag = [atom.index for atom in atoms if atom.symbol == 'Ag']
 
@@ -23,13 +23,13 @@ for a in indice_H:
 for b in indice_C:
 	radii[b] = 0.95
 for c in indice_O:
-	radii[c]= 0.85
+	radii[c] = 0.85
 for d in indice_Au:
-	radii[d]= 1.45
+	radii[d] = 1.45
 for e in indice_N:
-	radii[e]= 1.0
+	radii[e] = 1.0
 for f in indice_Ag:
-	radii[f]= 1.3
+	radii[f] = 1.3
 #ghij
 
 
