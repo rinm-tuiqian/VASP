@@ -35,7 +35,7 @@ for f in indice_Ag:
 
 tex = [] 
 for k in range(len(number)):
-	if number[k] == 1:
+	if   number[k] == 1:
 		tex.append('simple')
 	elif number[k] == 6:
 		tex.append('glass')
@@ -61,31 +61,36 @@ for s in indice_Ag:
 #colors[945:1260]=[169,169,169] / np.array([255.]) choose someone atom to highlight
 
 
-renderer = io.write('3.pov', atoms,
-                    #rotation='90y',
-                    radii=radii,
-                    show_unit_cell=0,
-                    povray_settings=dict(
-    					bondlinewidth=0.07,
-    					display.     = True, # Display while rendering
-  					#camera_type = ultra_wide_angle, # perspective, ultra_wide_angle
-  					pause        = True, # Pause when done rendering (only if display)
-    					transparent  = False,# Transparent background if it is ture the background is white
-    					canvas_width = None, # Width of canvas in pixels
-    					canvas_height= 1480, # Height of canvas in pixels  !only change one of width and height!
-   					colors       = colors,
-    					camera_dist  = 100.,  # Distance from camera to front atom
-    					image_plane  = None, # Distance from      uyu front atom to image plane
-    					camera_type  = 'orthographic', # perspective, ultra_wide_angle，orthographic
-    					point_lights = [],             # [[loc1, color1], [loc2, color2],...]
-    					area_light   = [(10., 10., 40.),# location
-                      					'White',       # color
-                      					25, 25, 20, 20], # width, height, Nlamps_x, Nlamps_y
-    					background   = 'White',        # color defult is White
-   
-    					textures     = tex, # Length of atoms list of texture names
-    					#rotation    =rot,
-    					#celllinewidth= 0,))
+aaa=dict(   bondlinewidth=0.07,
+    	    display      = True, # Display while rendering
+  	    #camera_type = ultra_wide_angle, # perspective, ultra_wide_angle
+  	    pause        = True, # Pause when done rendering (only if display)
+    	    transparent  = False,# Transparent background if it is ture the background is white
+    	    canvas_width = None, # Width of canvas in pixels
+    	    canvas_height= 1480, # Height of canvas in pixels  !only change one of width and height!
+   	    colors       = colors,
+    	    camera_dist  = 100.,  # Distance from camera to front atom
+            image_plane  = None, # Distance from      uyu front atom to image plane
+    	    camera_type  = 'orthographic', # perspective, ultra_wide_angle，orthographic
+    	    point_lights = [],             # [[loc1, color1], [loc2, color2],...]
+    	    area_light   = [(10., 10., 40.),# location
+                      	   'White',       # color
+                      	   25, 25, 20, 20], # width, height, Nlamps_x, Nlamps_y
+    	   background   = 'White',        # color defult is White
+    	   textures     = tex, # Length of atoms list of texture names
+    	  #rotation    =rot,
+    	  #celllinewidth= 0,
+        )
+
+io.write('1.pov', atoms,
+                  radii=radii,
+                  show_unit_cell=0,
+                  povray_settings=dict(aaa))
+io.write('2.pov', atoms,
+                  radii=radii,
+	 	  rotation='-90x',
+                  show_unit_cell=0,
+                  povray_settings=dict(aaa))
     
     
     		
