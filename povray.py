@@ -1,3 +1,9 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Wed Mar 16 22:50:15 2022
+
+@author: penggy
+"""
 import ase.io as io
 import numpy as np
 from ase.data import colors
