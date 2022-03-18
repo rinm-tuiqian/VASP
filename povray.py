@@ -82,10 +82,10 @@ aaa=dict(   bondlinewidth=0.07,
     	    area_light   = [(10., 10., 40.),# location
                       	   'White',       # color
                       	   25, 25, 20, 20], # width, height, Nlamps_x, Nlamps_y
-    	   background   = 'White',        # color defult is White
-    	   textures     = tex, # Length of atoms list of texture names
-    	  #rotation    =rot,
-    	  #celllinewidth= 0,
+    	    background   = 'White',        # color defult is White
+    	    textures     = tex, # Length of atoms list of texture names
+    	    #rotation    =rot,
+    	    #celllinewidth= 0,
         )
 
 io.write('1.pov', atoms,
