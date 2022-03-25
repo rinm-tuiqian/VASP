@@ -23,6 +23,8 @@ indice_Au = [atom.index for atom in atoms if atom.symbol == 'Au']
 indice_Ag = [atom.index for atom in atoms if atom.symbol == 'Ag']
 
 
+number=atoms.get_atomic_numbers()
+colors=jmol_colors[number]
 radii = covalent_radii[number]
 for a in indice_H:
 	radii[a] = 0.6
