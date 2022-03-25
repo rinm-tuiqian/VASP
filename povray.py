@@ -4,14 +4,21 @@ Created on Wed Mar 16 22:50:15 2022
 
 @author: penggy
 """
+    		
+'''
+Python 3.9.0
+pip 22.0.4 
+ase-3.22.1
+'''
 import ase.io as io
 import numpy as np
+from ase.io import read
 from ase.data import colors
 from ase.data.colors import jmol_colors
 from ase.data import covalent_radii
 
 #read file 
-atoms = read('CONTCAR')
+atoms =read('CONTCAR_opt')
 
 
 indice_C  = [atom.index for atom in atoms if atom.symbol == 'C']
@@ -24,7 +31,6 @@ indice_Ag = [atom.index for atom in atoms if atom.symbol == 'Ag']
 
 
 number=atoms.get_atomic_numbers()
-colors=jmol_colors[number]
 radii = covalent_radii[number]
 for a in indice_H:
 	radii[a] = 0.6
@@ -71,12 +77,12 @@ for s in indice_Ag:
 
 aaa=dict(   bondlinewidth=0.07,
     	    display      = True, # Display while rendering
-  	    #camera_type = ultra_wide_angle, # perspective, ultra_wide_angle
-  	    pause        = True, # Pause when done rendering (only if display)
+  	        #camera_type = ultra_wide_angle, # perspective, ultra_wide_angle
+  	        pause        = True, # Pause when done rendering (only if display)
     	    transparent  = False,# Transparent background if it is ture the background is white
     	    canvas_width = None, # Width of canvas in pixels
     	    canvas_height= 1480, # Height of canvas in pixels  !only change one of width and height!
-   	    colors       = colors,
+   	        colors       = colors,
     	    camera_dist  = 100.,  # Distance from camera to front atom
             image_plane  = None, # Distance from      uyu front atom to image plane
     	    camera_type  = 'orthographic', # perspective, ultra_wide_angle，orthographic
@@ -101,7 +107,3 @@ io.write('2.pov', atoms,
                   povray_settings=dict(aaa))
     
     
-    		
-
-
-
