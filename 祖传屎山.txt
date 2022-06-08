@@ -5,7 +5,6 @@ Linux 使用指引
 ------------------------新安装不能互相粘贴--------------------
 sudo apt-get install update
 sudo apt-get install open-vm-tools-desktop or sudo apt-get install open-vm-tools
-
 reboot
 
 --------------------------Liunx 搭梯子---------------------------------------------------
@@ -18,9 +17,6 @@ sudo apt update
 sudo apt install python3-pip
 
 export PATH=/usr/local/bin:$PATH
-
-
-
 
 alias l='ls'
 alias ll='ls -l'
