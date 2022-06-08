@@ -32,6 +32,12 @@ source  ~/.bashrc
 sudo apt-get remove vim-common
 sudo apt-get install vim
 
+-------------------缺少GCC 以及G++ 且安装出现apt-get /var/lib/dpkg/lock-frontend -------------
+sudo rm /var/lib/dpkg/lock-frontend
+sudo rm /var/lib/dpkg/lock
+sudo rm /var/cache/apt/archives/lock
+sudo apt update
+sudo apt-get install build-essential
 
 
 
