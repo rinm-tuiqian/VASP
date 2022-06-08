@@ -2,6 +2,12 @@ Linux 使用指引
 -----------------------更换国内的源--------------
 右上角倒三角 setting》about〉software》China 推荐使用阿里云
 
+------------------------新安装不能互相粘贴--------------------
+sudo apt-get install update
+sudo apt-get install open-vm-tools-desktop or sudo apt-get install open-vm-tools
+
+reboot
+
 --------------------------Liunx 搭梯子---------------------------------------------------
 https://github.com/Fndroid/clash_for_windows_pkg/releases #下载适合的版本解压改名为clash
 chmod +x clash #注意 修改网络为手动 HTTP 以及 HTTPS 为127.0.0.1 和7890
