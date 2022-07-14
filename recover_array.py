@@ -3,6 +3,7 @@
 Created on Wed Mar  3 19:57:19 2021
 
 @author: pengguyue
+this code is used to recover atoms array 
 """
 
 
@@ -26,7 +27,8 @@ def scale(file_1, file_2):
  atoms.write(file_2)
  return
 
-
+#CONTCAR_IS is template
+# 第一个是要恢复的模板
 scale('CONTCAR_IS','CONTCAR_FS')
 a=read('CONTCAR_FS')
 
