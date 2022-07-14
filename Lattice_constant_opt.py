@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct 11 19:53:51 2020
+@author: Kaifn 
 # This script performs the optimization of lattice constant for primitive cell.
 # Requires the developer version of ASE
 
