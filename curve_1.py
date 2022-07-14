@@ -5,7 +5,7 @@ Created on Sun Nov 15 12:00:17 2020
 @author: pengg
 
 注：此段代码存在硬伤，即使是数据不从0开始但是y轴刻度依旧是以0开始，暂时无法解决这问题。
-
+Note: There is a flaw in this code. Even if the data does not start from 0, the y-axis scale still starts from 0. This problem cannot be solved temporarily.
 """
 
 
