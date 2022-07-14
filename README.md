@@ -32,6 +32,7 @@ The Journal of Physical Chemistry Letters 2022 13 (14), 3276-3282
 DOI: 10.1021/acs.jpclett.2c00369
 
 
-![image](https://user-images.githubusercontent.com/60353745/178888204-2cf3e935-9d36-46f8-a6d1-4fecea34fd95.png)
+![image](https://user-images.githubusercontent.com/60353745/178888297-a3ced4a2-3d1b-4fd1-a68c-374198b7bc07.png)
+
 
 
