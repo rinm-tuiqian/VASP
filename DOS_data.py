@@ -1,3 +1,12 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct 11 19:53:51 2020
+@author: Kaifn & pengg
+be care for atoms size
+this code is applied to draw DOS figure
+
+
+"""
 import sys
 import numpy as np
 import matplotlib.pyplot as plt
@@ -68,16 +77,17 @@ def read_COHP(name):
 	f.close()
 	
 fig, ax = plt.subplots(1,1,figsize=(8,6))	
-
-R_COOH=dos_file('C:/Users/pengg/Desktop/C2/IS/all/R_COOH.dat').dos_list(-5, 5, 1)
-R_OH=dos_file('C:/Users/pengg/Desktop/C2/IS/all/R_OH.dat').dos_list(-5, 5, 1)
-R_CHO=dos_file('C:/Users/pengg/Desktop/C2/IS/all/R_CHO.dat').dos_list(-5, 5, 1)
+#read **.dat data
+#date from get_dos.py 
+R_COOH=dos_file('Desktop/C2/IS/all/R_COOH.dat').dos_list(-5, 5, 1)
+R_OH=dos_file('Desktop/C2/IS/all/R_OH.dat').dos_list(-5, 5, 1)
+R_CHO=dos_file('Desktop/C2/IS/all/R_CHO.dat').dos_list(-5, 5, 1)
 
 COOH=ax.plot(R_COOH[0],R_COOH[1],c='b',label='R_COOH',linewidth=2,)
 OH=ax.plot(R_OH[0],R_OH[1],c='r',label='R_OH',linewidth=2)
 CHO=ax.plot(R_CHO[0],R_CHO[1],c='g',label='R_CHO', linewidth=2)
 
-
+#add lable and adjust figure size ..
 ax.set_xlabel('$\mathrm{E-E_F}$ (eV)')
 ax.set_ylabel('DOS (a.u.)')
 ax.axvline(x=0,ls='--',c='k')
@@ -86,5 +96,5 @@ ax.set_ylim([0,1.0])
 ax.legend(loc='upper left',fontsize=18)
 ax.set_title('C2_all DOS') ####title
 fig.tight_layout()
-plt.savefig('C:/Users/pengg/Desktop/C2/IS/all/fig.png',dpi=300)
+plt.savefig('Desktop/C2/IS/all/fig.png',dpi=300)
 plt.show()
