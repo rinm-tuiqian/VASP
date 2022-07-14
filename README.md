@@ -15,7 +15,7 @@
 
 # Materials Simulation and Computation - Surface Reactions
 
-I am  master student at Soochow University.Majoring in Materials Simulation and Computation，I want my code will give guide and reference to students who entering the direction of material computing.
+I am  master student at Soochow University.Majoring in Materials Simulation and Computation，I wish my code will provide guidance and reference for students who step into the direction of material calculation.
 
 The code version is Python 3.9, the compilation software is Spyder, and both Linux macOS and win10 can be used.
 
