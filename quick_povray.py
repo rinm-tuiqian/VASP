@@ -3,7 +3,10 @@
 Created on Sun Oct 11 19:53:51 2020
 
 @author: pengg
-be care for atoms size
+this code is very strange,it will report many errors which are can't solve ,
+maybe is version error or not, i don't know.
+
+GOOD LUCK!
 
 """
 
