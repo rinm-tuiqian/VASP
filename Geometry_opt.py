@@ -1,6 +1,9 @@
-'''
+# -*- coding: utf-8 -*-
+"""
+Created on Sun Oct 11 19:53:51 2020
+@author: Kaifn 
 This script use VDW is re-vdWDF2 not ivdw =11(DFT-D3),meanwhile,functional is not PBE at all. 
-'''
+"""
 from ase.io import read
 from ase.calculators.vasp import Vasp, xdat2traj
 import numpy as np
