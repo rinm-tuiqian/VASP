@@ -5,15 +5,8 @@
 其中代码版本为Python 3.9，编译软件为Spyder，Linux macOS以及win10均可使用。
 
 撰写文章中对代码的描述如下
-Vienna ab initio simulation package (VASP) code with Projector Augmented-Wave (PAW) potentials.
 
-The van der Waals interaction was described by the zero damping re-vdwDF2 method of Grimme.
-
-The Γ point was used in both geometry optimizations and NEB calculations,  1 X 1 X 1 gird was adopted in the calculations of electronic properties.
-
-Rough prediction of the transition state is base on the CI-NEB method(Climb Nudged Elastic Band).
-
-Use the central image of the NEB calculation as the of the Dimer method).
+![image](https://user-images.githubusercontent.com/60353745/178885988-a1350477-1f2d-4683-ac26-0cafc0f56eb3.png)
 
 
 
