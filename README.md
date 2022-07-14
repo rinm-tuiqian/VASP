@@ -15,7 +15,7 @@
 
 # Materials Simulation and Computation - Surface Reactions
 
-
+I am a master student at Soochow University，Majoring in Materials Simulation and Computation，I want my code will give guide and reference to students who entering the direction of material computing
 
 
 
