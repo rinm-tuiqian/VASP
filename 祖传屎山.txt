@@ -1,4 +1,8 @@
 Linux 使用指引
+----------------安装homebrew---------------
+ sudo rm Homebrew.sh ; wget https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh ; bash Homebrew.sh
+
+
 -----------------------更换国内的源--------------
 右上角倒三角 setting》about〉software》China 推荐使用阿里云
 
