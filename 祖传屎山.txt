@@ -2,6 +2,11 @@ Linux 使用指引
 ----------------安装homebrew---------------
  sudo rm Homebrew.sh ; wget https://gitee.com/cunkai/HomebrewCN/raw/master/Homebrew.sh ; bash Homebrew.sh
 
+---------------------homebrew失败fatal: not in a git directory Error: Command failed with exit 128: git------
+brew -v 
+git config --global --add safe.directory 你的homebrew-core(cask)路径
+https://www.qingzo.com/jishu/machomebrew.html
+
 
 -----------------------更换国内的源--------------
 右上角倒三角 setting》about〉software》China 推荐使用阿里云
