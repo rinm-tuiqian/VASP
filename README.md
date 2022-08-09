@@ -20,7 +20,7 @@ I am  master student at Soochow University.Majoring in Materials Simulation and 
 The code version is Python 3.9, the compilation software is Spyder, and both Linux macOS and win10 can be used.
 
 
-if you want learn more about this code or write paper ; please cite my paper or email me:pengguyue001@gmail.com.
+if you want learn more about this code or write paper ; please cite my paper .
 
 
 DOI: 10.1021/acs.jpclett.2c00369
