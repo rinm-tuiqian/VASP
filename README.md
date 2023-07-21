@@ -1,7 +1,7 @@
 # 材料模拟与计算-表面反应  
 
 
-本人为苏州大学研三在读学生，主修方向为材料模拟与计算，希望能前人栽树后人乘凉，为踏入材料计算方向的同学在码代码时提供指引和参考。
+本人为苏州大学毕业生，主修方向为材料模拟与计算，希望能前人栽树后人乘凉，为踏入材料计算方向的同学在码代码时提供指引和参考。
 
 其中代码版本为Python 3.9，编译软件为Spyder，Linux macOS以及win10均可使用。
 
@@ -15,7 +15,7 @@
 
 # Materials Simulation and Computation - Surface Reactions
 
-I am  master student at Soochow University.Majoring in Materials Simulation and Computation，I wish my code will provide guidance and reference for students who step into the direction of material calculation.
+I am at Soochow University.Majoring in Materials Simulation and Computation，I wish my code will provide guidance and reference for students who step into the direction of material calculation.
 
 The code version is Python 3.9, the compilation software is Spyder, and both Linux macOS and win10 can be used.
 
